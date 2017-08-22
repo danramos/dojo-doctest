@@ -17,8 +17,18 @@ public:
 
     std::string str()
     {
-        int whole = static_cast<int>(_number);
-        const auto result = std::to_string(whole);
+        const int whole = static_cast<int>(_number);
+        std::string result;
+        
+
+        auto remainder = whole % 2;
+        auto quotient = whole / 2;
+
+        if (quotient)
+        {
+            result = std::to_string(quotient);
+        }
+        result += std::to_string(remainder);
         return result;
     }
 
