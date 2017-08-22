@@ -19,10 +19,18 @@ public:
     {
         std::string result;
         int whole = static_cast<int>(_number);
+        auto fraction = _number - whole;
+
         do {
             result = std::to_string(whole % 2) + result;
             whole = whole / 2;
         } while (whole);
+
+
+        if (fraction)
+        {
+            result += ".1";
+        }
         return result;
     }
 
