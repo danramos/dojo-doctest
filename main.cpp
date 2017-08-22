@@ -29,9 +29,10 @@ public:
 
 
         if (fraction)
-        {
             result += ".";
 
+        if (fraction)
+        {
             auto temp = fraction * 2;
             auto whole = static_cast<int>(temp);
 
@@ -39,7 +40,15 @@ public:
             fraction = temp - whole;
 
             if (fraction) {
-                result += "1";
+                auto temp = fraction * 2;
+                auto whole = static_cast<int>(temp);
+                result += std::to_string(whole);
+
+                fraction = temp - whole;
+                if (fraction)
+                {
+                    result += "1";
+                }
             }
         }
 
@@ -112,6 +121,6 @@ TEST_CASE("0.75 is represented as 0.11")
 
 TEST_CASE("0.625 is represented by 0.101")
 {
-    BinaryFractionGenerator generator(0.75);
+    BinaryFractionGenerator generator(0.625);
     CHECK("0.101" == generator.str());
 }
