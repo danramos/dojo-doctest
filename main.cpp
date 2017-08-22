@@ -95,9 +95,15 @@ TEST_CASE("0.5 is represented as 0.1")
     CHECK("0.1" == generator.str());
 }
 
-TEST_CASE("0.25 is represented as 0.11")
+TEST_CASE("0.25 is represented as 0.01")
 {
     BinaryFractionGenerator generator(0.25);
     CHECK("0.01" == generator.str());
+}
+
+TEST_CASE("0.75 is represented as 0.11")
+{
+    BinaryFractionGenerator generator(0.75);
+    CHECK("0.11" == generator.str());
 }
 
