@@ -29,8 +29,17 @@ public:
 
         if (fraction)
         {
-            result += ".1";
+            result += ".";
+
+            auto temp = fraction * 2;
+            auto whole = static_cast<int>(temp);
+            if (not whole) {
+                result += "0";
+                fraction = fraction - whole;
+            }
+            result += "1";
         }
+
         return result;
     }
 
@@ -85,3 +94,10 @@ TEST_CASE("0.5 is represented as 0.1")
     BinaryFractionGenerator generator(0.5);
     CHECK("0.1" == generator.str());
 }
+
+TEST_CASE("0.25 is represented as 0.11")
+{
+    BinaryFractionGenerator generator(0.25);
+    CHECK("0.01" == generator.str());
+}
+
