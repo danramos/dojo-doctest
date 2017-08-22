@@ -22,12 +22,12 @@ public:
         int whole = static_cast<int>(_number);
 
         std::string result;
-
         auto remainder = whole % 2;
         if (whole > 1) {
             auto quotient = whole / 2;
             ss << quotient;
         }
+
 
         ss << remainder;
         return ss.str();
@@ -55,6 +55,13 @@ TEST_CASE("2.0 is represented as 10, 3.0 is represented as 11")
 
     BinaryFractionGenerator generator2(3.0);
     CHECK("11" == generator2.str());
+}
+
+
+TEST_CASE("4.0 is represented as 100")
+{
+    BinaryFractionGenerator generator(2.0);
+    CHECK("100" == generator.str());
 }
 
 
