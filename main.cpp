@@ -11,19 +11,39 @@
 class BinaryFractionGenerator
 {
 public:
-    BinaryFractionGenerator(float x)
+    BinaryFractionGenerator(float x) : _number(x)
     {
     }
 
     std::string str()
     {
-        return "0.0";
+        std::stringstream ss;
+        int whole = static_cast<int>(_number);
+        if (whole > 1) {
+            return std::to_string(whole / 2) +
+                std::to_string(whole - 2);
+        }
+        return std::to_string(whole);
     }
+
+    float _number;
 };
 
 TEST_CASE("0d is represented as 0.0")
 {
     BinaryFractionGenerator generator(0.0);
-    CHECK("0.0" == generator.str());
+    CHECK("0" == generator.str());
+}
+
+TEST_CASE("1.0 is represented as 1")
+{
+    BinaryFractionGenerator generator(1.0);
+    CHECK("1" == generator.str());
+}
+
+TEST_CASE("2.0 is represented as 10")
+{
+    BinaryFractionGenerator generator(2.0);
+    CHECK("10" == generator.str());
 }
 
