@@ -19,51 +19,14 @@ public:
     {
         std::string result;
         int whole = static_cast<int>(_number);
-
-/*
-        auto remainder = whole % 2;
-        whole = whole / 2;
-        result = std::to_string(remainder) + result;
-        if (whole)
-        {
-            remainder = whole % 2;
+        do {
+            result = std::to_string(whole % 2) + result;
             whole = whole / 2;
-            result = std::to_string(remainder) + result;
-
-            if (whole)
-            {
-                remainder = whole % 2;
-                whole = whole / 2;
-                result = std::to_string(remainder) + result;
-
-                if (whole)
-                {
-                    remainder = 
-                    result = std::to_string(whole) + result;
-                }
-                result = std::to_string(whole) + result;
-            }
-        }
-        */
-
-        do
-        {
-            auto remainder = whole % 2;
-            whole = whole / 2;
-            result = std::to_string(remainder) + result;
-        }
-        while (whole);
-
+        } while (whole);
         return result;
     }
 
 private:
-    /*
-    std::string getWholeRepresentation(int whole)
-    {
-    }
-    */
-
     float _number;
 };
 
@@ -107,6 +70,10 @@ TEST_CASE("9.0 is represented as 1001")
 
     BinaryFractionGenerator generator3(15.0);
     CHECK("1111" == generator3.str());
+}
 
-
+TEST_CASE("0.5 is represented as 0.1")
+{
+    BinaryFractionGenerator generator(0.5);
+    CHECK("0.1" == generator.str());
 }
