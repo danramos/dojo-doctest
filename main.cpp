@@ -4,123 +4,110 @@
 #include <sstream>
 #include <iostream>
 
-/**
- * Do not change
- *
- */
-
-class BinaryFractionGenerator
+std::string to_binary(float _number)
 {
-public:
-    BinaryFractionGenerator(float x) : _number(x)
+    std::string result;
+    int whole = static_cast<int>(_number);
+    float fraction = _number - whole;
+
+    do {
+        result = std::to_string(whole % 2) + result;
+        whole = whole / 2;
+    } while (whole);
+
+    if (fraction)
     {
-    }
-
-    std::string str()
-    {
-        std::string result;
-        int whole = static_cast<int>(_number);
-        auto fraction = _number - whole;
-
-        do {
-            result = std::to_string(whole % 2) + result;
-            whole = whole / 2;
-        } while (whole);
-
-
-        if (fraction)
-            result += ".";
-
-        if (fraction)
+        result += ".";
+        while (fraction)
         {
-            auto temp = fraction * 2;
-            auto whole = static_cast<int>(temp);
-
+            const auto temp = fraction * 2;
+            const auto whole = static_cast<int>(temp);
             result += std::to_string(whole);
             fraction = temp - whole;
-
-            if (fraction) {
-                auto temp = fraction * 2;
-                auto whole = static_cast<int>(temp);
-                result += std::to_string(whole);
-
-                fraction = temp - whole;
-                if (fraction)
-                {
-                    result += "1";
-                }
-            }
         }
-
-        return result;
     }
+    return result;
+}
 
-private:
-    float _number;
-};
 
 TEST_CASE("0d is represented as 0.0")
 {
-    BinaryFractionGenerator generator(0.0);
-    CHECK("0" == generator.str());
+    CHECK("0" == to_binary(0.0));
 }
 
 TEST_CASE("1.0 is represented as 1")
 {
-    BinaryFractionGenerator generator(1.0);
-    CHECK("1" == generator.str());
+    CHECK("1" == to_binary(1.0));
 }
 
 TEST_CASE("2.0 is represented as 10, 3.0 is represented as 11")
 {
-    BinaryFractionGenerator generator(2.0);
-    CHECK("10" == generator.str());
-
-    BinaryFractionGenerator generator2(3.0);
-    CHECK("11" == generator2.str());
+    CHECK("10" == to_binary(2.0));
+    CHECK("11" == to_binary(3.0));
 }
 
 TEST_CASE("4.0 is represented as 100")
 {
-    BinaryFractionGenerator generator(4.0);
-    CHECK("100" == generator.str());
-
-    BinaryFractionGenerator generator2(5.0);
-    CHECK("101" == generator2.str());
+    CHECK("100" == to_binary(4.0));
+    CHECK("101" == to_binary(5.0));
 }
 
 TEST_CASE("9.0 is represented as 1001")
 {
-    BinaryFractionGenerator generator(9.0);
-    CHECK("1001" == generator.str());
-
-    BinaryFractionGenerator generator2(13.0);
-    CHECK("1101" == generator2.str());
-
-    BinaryFractionGenerator generator3(15.0);
-    CHECK("1111" == generator3.str());
+    CHECK("1001" == to_binary(9.0));
+    CHECK("1101" == to_binary(13.0));
+    CHECK("1111" == to_binary(15.0));
 }
 
 TEST_CASE("0.5 is represented as 0.1")
 {
-    BinaryFractionGenerator generator(0.5);
-    CHECK("0.1" == generator.str());
+    CHECK("0.1" == to_binary(0.5));
 }
 
 TEST_CASE("0.25 is represented as 0.01")
 {
-    BinaryFractionGenerator generator(0.25);
-    CHECK("0.01" == generator.str());
+    CHECK("0.01" == to_binary(0.25));
 }
 
 TEST_CASE("0.75 is represented as 0.11")
 {
-    BinaryFractionGenerator generator(0.75);
-    CHECK("0.11" == generator.str());
+    CHECK("0.11" == to_binary(0.75));
 }
 
 TEST_CASE("0.625 is represented by 0.101")
 {
-    BinaryFractionGenerator generator(0.625);
-    CHECK("0.101" == generator.str());
+    CHECK("0.101" == to_binary(0.625));
 }
+
+TEST_CASE("0.625 is represented by 0.101")
+{
+    CHECK("0.101" == to_binary(0.625));
+    CHECK("0.011" == to_binary(0.375));
+}
+
+TEST_CASE("0.5625 is represented by 0.1001")
+{
+    CHECK("0.1001" == to_binary(0.5625));
+}
+
+TEST_CASE("13.625 is represented by 1101.101")
+{
+    CHECK("1101.101" == to_binary(13.625));
+}
+
+TEST_CASE("0.2 is an infinite binary decimal, so why is it terminated here")
+{
+    CHECK("0.00110011001100110011001101" == to_binary(0.2));
+}
+
+/**
+ * CHALLENGE!!!
+ * Modify code such that you get the first 200 bits in 0.2 binary expansion"
+ */
+/*
+TEST_CASE("More digits, the better")
+{
+    CHECK("0.0011001100110011001100110011001100110011001100110011001100110011001100110011001100110011001100110011" == to_binary(0.2));
+}
+*/
+
