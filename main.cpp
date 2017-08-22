@@ -2,7 +2,6 @@
 #include "include/doctest.h"
 #include <string>
 
-
 /**
  * Do not change
  *
@@ -17,7 +16,6 @@ public:
 
     std::string str()
     {
-        std::stringstream ss;
         int whole = static_cast<int>(_number);
         if (whole > 1) {
             return std::to_string(whole / 2) +
