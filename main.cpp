@@ -38,8 +38,17 @@ public:
             if (not whole) {
                 result += "0";
             }
+            else
+            {
+                result += "1";
 
+           }
+
+           fraction = temp - whole;
+           if (fraction) {
             result += "1";
+           }
+
 
         }
 
@@ -104,10 +113,8 @@ TEST_CASE("0.25 is represented as 0.01")
     CHECK("0.01" == generator.str());
 }
 
-/*
 TEST_CASE("0.75 is represented as 0.11")
 {
     BinaryFractionGenerator generator(0.75);
     CHECK("0.11" == generator.str());
 }
-*/
