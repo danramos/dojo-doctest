@@ -19,14 +19,22 @@ public:
     {
         const int whole = static_cast<int>(_number);
         std::string result;
-        
 
         auto remainder = whole % 2;
         auto quotient = whole / 2;
 
         if (quotient)
         {
-            result = std::to_string(quotient);
+            auto whole = quotient;
+            auto remainder = whole % 2;
+            auto quotient = whole / 2;
+
+            if (quotient)
+            {
+                result = std::to_string(quotient);
+            }
+            result += std::to_string(remainder);
+
         }
         result += std::to_string(remainder);
         return result;
@@ -63,11 +71,13 @@ TEST_CASE("2.0 is represented as 10, 3.0 is represented as 11")
     CHECK("11" == generator2.str());
 }
 
-/*
 TEST_CASE("4.0 is represented as 100")
 {
     BinaryFractionGenerator generator(4.0);
     CHECK("100" == generator.str());
+
+    BinaryFractionGenerator generator2(5.0);
+    CHECK("101" == generator2.str());
 }
-*/
+
 
