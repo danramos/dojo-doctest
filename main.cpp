@@ -6,29 +6,8 @@
 
 std::string to_binary(float _number)
 {
-    std::string result;
-    int whole = static_cast<int>(_number);
-    float fraction = _number - whole;
-
-    do {
-        result = std::to_string(whole % 2) + result;
-        whole = whole / 2;
-    } while (whole);
-
-    if (fraction)
-    {
-        result += ".";
-        while (fraction)
-        {
-            const auto temp = fraction * 2;
-            const auto whole = static_cast<int>(temp);
-            result += std::to_string(whole);
-            fraction = temp - whole;
-        }
-    }
-    return result;
+    return "";
 }
-
 
 TEST_CASE("0d is represented as 0.0")
 {
