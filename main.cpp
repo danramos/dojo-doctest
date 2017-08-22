@@ -1,6 +1,7 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "include/doctest.h"
 #include <string>
+#include <sstream>
 
 /**
  * Do not change
@@ -16,12 +17,20 @@ public:
 
     std::string str()
     {
+        std::stringstream ss;
+
         int whole = static_cast<int>(_number);
+
+        std::string result;
+
+        auto remainder = whole % 2;
         if (whole > 1) {
-            return std::to_string(whole / 2) +
-                std::to_string(whole - 2);
+            auto quotient = whole / 2;
+            ss << quotient;
         }
-        return std::to_string(whole);
+
+        ss << remainder;
+        return ss.str();
     }
 
     float _number;
@@ -39,9 +48,13 @@ TEST_CASE("1.0 is represented as 1")
     CHECK("1" == generator.str());
 }
 
-TEST_CASE("2.0 is represented as 10")
+TEST_CASE("2.0 is represented as 10, 3.0 is represented as 11")
 {
     BinaryFractionGenerator generator(2.0);
     CHECK("10" == generator.str());
+
+    BinaryFractionGenerator generator2(3.0);
+    CHECK("11" == generator2.str());
 }
+
 
